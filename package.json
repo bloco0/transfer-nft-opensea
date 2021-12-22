@@ -1,0 +1,17 @@
+{
+  "name": "transfer-nft-opensea",
+  "version": "1.0.0",
+  "description": "",
+  "main": "transfer-nfts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "EddieOz",
+  "license": "MIT",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^10.0.0",
+    "web3": "^1.6.1"
+  }
+}
