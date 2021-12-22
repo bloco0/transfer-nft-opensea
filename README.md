@@ -23,3 +23,6 @@ $ node transfer-nft-web3.js
 
 Remember to have coins on your wallet to pay for gas.
 The OWNER_ADDRESS (wallet) must be the owner of the nft(s).
+
+## TO-DO
+- Interface web for submitting smart-contract, token id and wallets.csv
