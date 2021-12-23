@@ -40,18 +40,18 @@ async function main() {
   fs.createReadStream('wallets.csv')
     .pipe(csv())
     .on('data', async (destWallet) => {
-      // console.log(destWallet.wallet)
+      console.log(destWallet.wallets)
       let qtyOwner = await nftContract.methods.balanceOf(OWNER_ADDRESS, TOKEN_ID).call()
-      let qtyDest = await nftContract.methods.balanceOf(destWallet.wallet, TOKEN_ID).call()
-      console.log(`Wallet ${destWallet.wallet} qty ${qtyDest}`)
+      let qtyDest = await nftContract.methods.balanceOf(destWallet.wallets, TOKEN_ID).call()
+      console.log(`Wallet ${destWallet.wallets} qty ${qtyDest}`)
       
       if (qtyOwner > 0 && qtyDest == 0){
           try{
               let gasPrice = await web3.eth.getGasPrice();
-              let gas = await nftContract.methods.safeTransferFrom(OWNER_ADDRESS, destWallet.wallet, TOKEN_ID, 1, "0x0")
+              let gas = await nftContract.methods.safeTransferFrom(OWNER_ADDRESS, destWallet.wallets, TOKEN_ID, 1, "0x0")
               .estimateGas({ from: OWNER_ADDRESS });
 
-              await nftContract.methods.safeTransferFrom(OWNER_ADDRESS, destWallet.wallet, TOKEN_ID, 1, "0x0")
+              await nftContract.methods.safeTransferFrom(OWNER_ADDRESS, destWallet.wallets, TOKEN_ID, 1, "0x0")
               .send({ from: OWNER_ADDRESS, gas: gas, gasPrice: gasPrice })
               .then(function(tx){
                   console.log("TX: ", tx);
@@ -61,7 +61,7 @@ async function main() {
               console.log(e);
           }
       } else {
-          console.log(`Can't transfer. qtyOwner ${qtyOwner} destWallet ${destWallet.wallet} qtyDest ${qtyDest}`)
+          console.log(`Can't transfer. qtyOwner ${qtyOwner} destWallet ${destWallet.wallets} qtyDest ${qtyDest}`)
       }
     })
     .on('end', () => {
